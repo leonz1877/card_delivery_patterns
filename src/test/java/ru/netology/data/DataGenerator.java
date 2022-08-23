@@ -1,4 +1,4 @@
-package ru.netology.test;
+package ru.netology.data;
 
 import com.github.javafaker.Faker;
 import lombok.Value;
@@ -15,17 +15,17 @@ public class DataGenerator {
     private static Faker faker = new Faker(new Locale("ru"));
     static final Random random = new Random();
 
-    DataGenerator() {
+    public DataGenerator() {
     }
 
 
     public static String generateDate() {
         int shift = random.nextInt(365);
 
-        String Date = LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String date = LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         // TODO: добавить логику для объявления переменной date и задания её значения, для генерации строки с датой
         // Вы можете использовать класс LocalDate и его методы для получения и форматирования даты
-        return Date;
+        return date;
     }
 
     public static String generateCity() {
@@ -129,7 +129,7 @@ public class DataGenerator {
         names.add("Гришина Елизавета");
         names.add("Павлова Таисия");
         names.add("Тарасова Виктория");
-        names.add("Сычев Артём");
+        names.add("Сычев Артем");
         names.add("Афанасьев Богдан");
         names.add("Егоров Никита");
         names.add("Сергеева Анастасия");
@@ -154,7 +154,7 @@ public class DataGenerator {
         names.add("Баранова Алиса");
         names.add("Виноградов Илья");
         names.add("Александрова София");
-        names.add("Никифорова Алёна");
+        names.add("Никифорова Алена");
         names.add("Алексеева Вероника");
         names.add("Гришина Кира");
         names.add("Александров Глеб");
@@ -236,8 +236,8 @@ public class DataGenerator {
         private Registration() {
         }
 
-        public static UserInfo generateUser(String locale) {
-            int shift;
+        public static UserInfo generateUser() {
+
             UserInfo user = new UserInfo(
                     generateDate(), generateDate(), generateCity(), generateName(), generatePhone());
             return user;
