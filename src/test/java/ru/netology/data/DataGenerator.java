@@ -20,11 +20,9 @@ public class DataGenerator {
 
 
     public static String generateDate() {
-        int shift = random.nextInt(365);
+        int shift = random.nextInt(362) + 3;
 
         String date = LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-        // TODO: добавить логику для объявления переменной date и задания её значения, для генерации строки с датой
-        // Вы можете использовать класс LocalDate и его методы для получения и форматирования даты
         return date;
     }
 
@@ -115,7 +113,6 @@ public class DataGenerator {
         cities.add("Ханты-Мансийск");
         cities.add("Анадырь");
         cities.add("Салехард");
-        //String city = faker.address().cityName();
         String city = cities.get(random.nextInt(cities.size() - 1));
         return city;
     }
@@ -223,7 +220,6 @@ public class DataGenerator {
         names.add("Карпов Руслан");
         names.add("Горюнова Мария");
         String name = names.get(random.nextInt(names.size() - 1));
-        //String name = faker.name().fullName();
         return name;
     }
 
@@ -239,7 +235,7 @@ public class DataGenerator {
         public static UserInfo generateUser() {
 
             UserInfo user = new UserInfo(
-                    generateDate(), generateDate(), generateCity(), generateName(), generatePhone());
+                    generateCity(), generateName(), generatePhone());
             return user;
         }
 
@@ -247,8 +243,6 @@ public class DataGenerator {
 
     @Value
     public static class UserInfo {
-        String firstDate;
-        String secondDate;
         String city;
         String name;
         String phone;

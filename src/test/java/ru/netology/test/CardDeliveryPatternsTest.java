@@ -17,10 +17,15 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CardDeliveryPatternsTest {
+
+    String firstMeetDate = DataGenerator.generateDate();
+    String secondtMeetDate = DataGenerator.generateDate();
+
     @BeforeEach
     void setup() {
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
+
     }
 
     @Test
@@ -28,17 +33,22 @@ public class CardDeliveryPatternsTest {
         var validUser = DataGenerator.Registration.generateUser();
 
         $("[data-test-id=city] input").setValue(validUser.getCity());
-        $("[data-test-id=date] input").doubleClick().sendKeys(validUser.getFirstDate());
+        $("[data-test-id=date] input").doubleClick().sendKeys(firstMeetDate);
         $("[data-test-id=name] input").setValue(validUser.getName());
         $("[data-test-id=phone] input").setValue(validUser.getPhone());
         $("[data-test-id=agreement]").click();
         $(By.className("button")).click();
-        $("[data-test-id=date] input").doubleClick().sendKeys(validUser.getSecondDate());
+
+        $(".notification__content")
+                .shouldHave(text("Встреча успешно запланирована на " + firstMeetDate))
+                .shouldBe(visible);
+
+        $("[data-test-id=date] input").doubleClick().sendKeys(secondtMeetDate);
         $(By.className("button")).click();
         $x("//span[contains(text(),'Перепланировать')]").click();
 
         $(".notification__content")
-                .shouldHave(text("Встреча успешно запланирована на " + validUser.getSecondDate()))
+                .shouldHave(text("Встреча успешно запланирована на " + secondtMeetDate))
                 .shouldBe(visible);
     }
 }
